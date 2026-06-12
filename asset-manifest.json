@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/fam-line/static/css/main.6ca637cc.css",
+    "main.js": "/fam-line/static/js/main.12932f18.js",
+    "index.html": "/fam-line/index.html",
+    "main.6ca637cc.css.map": "/fam-line/static/css/main.6ca637cc.css.map",
+    "main.12932f18.js.map": "/fam-line/static/js/main.12932f18.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6ca637cc.css",
+    "static/js/main.12932f18.js"
+  ]
+}
