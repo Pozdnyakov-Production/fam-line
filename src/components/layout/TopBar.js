@@ -1,9 +1,6 @@
 // src/components/layout/TopBar.js
 import React, { useState, useEffect } from 'react';
-import {
-  AppBar, Toolbar, IconButton, Badge, Box, Popover, TextField, List, ListItem,
-  ListItemAvatar, Avatar, ListItemText, Typography, Divider, MenuItem, useMediaQuery,
-} from '@mui/material';
+import { AppBar, Toolbar, IconButton, Badge, Box, Popover, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, Divider, MenuItem } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
