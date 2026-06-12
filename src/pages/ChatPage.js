@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
   Box, List, ListItemButton, ListItemText, Button, Typography, Paper, Container,
   Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogActions, TextField,
-  Autocomplete, Avatar, Chip, Alert,
+  Autocomplete, Avatar, Chip,
 } from '@mui/material';
 import { fetchRooms, createRoom, createDirectRoom } from '../store/chatSlice';
 import ChatWindow from '../components/chat/ChatWindow';
@@ -22,7 +22,6 @@ export default function ChatPage() {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [loadingRooms, setLoadingRooms] = useState(false);
 
-  // Загружаем комнаты при монтировании и при смене пользователя
   useEffect(() => {
     if (currentUser) {
       setLoadingRooms(true);
@@ -30,20 +29,7 @@ export default function ChatPage() {
     }
   }, [dispatch, currentUser]);
 
-  // Групповые и личные комнаты
   const groupRooms = rooms.filter(r => r.type !== 'direct');
-  const directRooms = rooms.filter(r => r.type === 'direct');
-
-  // Получение имени собеседника для личного чата
-  const getDirectRoomName = (room) => {
-    if (room.members) {
-      const otherId = room.members.find(id => id !== currentUser?.id);
-      const otherUser = users.find(u => u.id === otherId);
-      return otherUser ? `${otherUser.firstName} ${otherUser.lastName}` : 'Личный чат';
-    }
-    // Если members нет, попробуем найти через API (упрощённо)
-    return 'Личный чат';
-  };
 
   const handleCreateRoom = async () => {
     if (!newRoomName.trim()) return;
@@ -127,7 +113,6 @@ export default function ChatPage() {
         </Box>
       </Box>
 
-      {/* Модальное окно создания комнаты */}
       <Dialog open={createDialogOpen} onClose={() => setCreateDialogOpen(false)} fullWidth maxWidth="sm">
         <DialogTitle>Новая комната</DialogTitle>
         <DialogContent>

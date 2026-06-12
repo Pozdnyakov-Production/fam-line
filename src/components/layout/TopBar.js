@@ -1,3 +1,4 @@
+// src/components/layout/TopBar.js
 import React, { useState, useEffect } from 'react';
 import {
   AppBar, Toolbar, IconButton, Badge, Box, Popover, TextField, List, ListItem,
@@ -14,7 +15,6 @@ import { logout } from '../../store/authSlice';
 
 export default function TopBar() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const notifications = useSelector(state => state.notifications.items);
@@ -22,7 +22,6 @@ export default function TopBar() {
   const users = useSelector(state => state.auth.users);
   const currentUser = useSelector(state => state.auth.user);
 
-  // Поиск
   const [searchAnchor, setSearchAnchor] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -43,12 +42,10 @@ export default function TopBar() {
     }
   };
 
-  // Уведомления
   const [notifAnchor, setNotifAnchor] = useState(null);
   const handleNotifOpen = (e) => setNotifAnchor(e.currentTarget);
   const handleNotifClose = () => { setNotifAnchor(null); dispatch(markAllRead()); };
 
-  // Профиль
   const [profileAnchor, setProfileAnchor] = useState(null);
   const handleProfileOpen = (e) => setProfileAnchor(e.currentTarget);
   const handleProfileClose = () => setProfileAnchor(null);
@@ -56,7 +53,6 @@ export default function TopBar() {
   const handleProfileClick = () => { navigate('/profile'); handleProfileClose(); };
   const handleSettingsClick = () => { navigate('/settings'); handleProfileClose(); };
 
-  // Первоначальная загрузка уведомлений
   useEffect(() => {
     dispatch(fetchNotifications());
   }, [dispatch]);
@@ -96,7 +92,6 @@ export default function TopBar() {
         </Box>
       </Toolbar>
 
-      {/* Поиск */}
       <Popover
         open={Boolean(searchAnchor)}
         anchorEl={searchAnchor}
@@ -139,7 +134,6 @@ export default function TopBar() {
         </Box>
       </Popover>
 
-      {/* Уведомления */}
       <Popover
         open={Boolean(notifAnchor)}
         anchorEl={notifAnchor}
@@ -175,7 +169,6 @@ export default function TopBar() {
         </List>
       </Popover>
 
-      {/* Профиль */}
       <Popover
         open={Boolean(profileAnchor)}
         anchorEl={profileAnchor}

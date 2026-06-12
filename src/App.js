@@ -27,7 +27,7 @@ import { fetchNotes } from './store/notesSlice';
 import { fetchTransactions } from './store/bonusesSlice';
 import { fetchRooms } from './store/chatSlice';
 import { fetchFamilyUsers } from './store/authSlice';
-import { connectSocket, disconnectSocket } from './services/socket'; // импорт сокета
+import { connectSocket, disconnectSocket } from './services/socket';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,14 +38,10 @@ function App() {
   const familyLoading = useSelector((state) => state.family.loading);
   const token = useSelector((state) => state.auth.token);
 
-  const theme = useMemo(
-    () => getTheme(darkMode ? 'dark' : 'light', customColors),
-    [darkMode, customColors]
-  );
+  const theme = useMemo(() => getTheme(darkMode ? 'dark' : 'light', customColors), [darkMode, customColors]);
 
   useEffect(() => {
     if (user) {
-      // Инициализируем сокет
       connectSocket();
       if (!family && !familyLoading) {
         dispatch(fetchFamily());
@@ -61,6 +57,7 @@ function App() {
     return () => {
       disconnectSocket();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, dispatch, token]);
 
   if (!user) {

@@ -75,7 +75,6 @@ export default function TasksPage() {
   const isAssignee = (task) => String(task.assigneeId) === String(currentUser?.id);
   const isReviewer = (task) => isOwner || String(task.creatorId) === String(currentUser?.id);
 
-  // Функция отправки уведомления
   const sendNotification = async (userId, message) => {
     try {
       await client.post('/notifications', { userId, message });
@@ -84,7 +83,6 @@ export default function TasksPage() {
     }
   };
 
-  // Действия с уведомлениями
   const handleAccept = async (taskId, task) => {
     dispatch(changeTaskStatus({ taskId, newStatus: 'accepted' }));
     const assignee = getUserById(task.assigneeId);
@@ -133,7 +131,6 @@ export default function TasksPage() {
   const handleApprove = async (taskId, task) => {
     dispatch(changeTaskStatus({ taskId, newStatus: 'done' }));
     const assignee = getUserById(task.assigneeId);
-    const creator = getUserById(task.creatorId);
     if (assignee && assignee.id !== currentUser?.id) {
       await sendNotification(assignee.id, `Проверяющий подтвердил выполнение задачи "${task.title}"`);
     }
@@ -268,7 +265,6 @@ export default function TasksPage() {
         </Grid>
       )}
 
-      {/* Модальное окно с деталями и действиями */}
       <Dialog
         open={Boolean(selectedTask)}
         onClose={handleCloseTask}
