@@ -21,3 +21,17 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# зависимости
+node_modules/
+# переменные окружения (секреты)
+.env
+.env.local
+
+# папка сервера имеет свой .env, но сам серверный код мы тоже добавим
+server/node_modules/
+server/.env
+
+# сборка
+build/
+dist/
