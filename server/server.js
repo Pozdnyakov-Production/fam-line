@@ -14,7 +14,7 @@ const io = new Server(server, {
   cors: { origin: '*' }
 });
 
-app.use(cors({ origin: 'https://Pozdnyakov-Production.github.io' }));
+app.use(cors({ origin: 'https://pozdnyakov-production.github.io' }));
 app.use(express.json());
 
 const pool = mysql.createPool({
