@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "echo 'Server build step - nothing to do'",
     "predeploy": "npm run build && shx cp build/index.html build/404.html",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
