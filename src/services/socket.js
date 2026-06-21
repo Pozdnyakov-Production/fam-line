@@ -13,7 +13,9 @@ export const connectSocket = () => {
   const token = store.getState().auth.token;
   if (!token) return;
 
+  // Закрываем старое соединение, если есть
   if (socket) {
+    socket.removeAllListeners();
     socket.disconnect();
   }
 
@@ -26,6 +28,7 @@ export const connectSocket = () => {
 
   socket.on('connect', () => {
     console.log('Socket.IO подключён');
+    // Присоединяемся к семейной комнате
     socket.emit('join:family');
   });
 
@@ -35,6 +38,7 @@ export const connectSocket = () => {
 
   socket.on('task:statusChanged', ({ taskId, newStatus, reviewComment }) => {
     store.dispatch(changeTaskStatus({ taskId, newStatus, reviewComment }));
+    // Обновляем список задач, чтобы подтянуть возможные изменения бонусов
     store.dispatch(fetchTasks());
   });
 
@@ -42,6 +46,7 @@ export const connectSocket = () => {
     store.dispatch(fetchTasks());
   });
 
+  // Главное: получение новых сообщений чата
   socket.on('chat:message', (message) => {
     store.dispatch(messageReceived(message));
   });
@@ -71,14 +76,7 @@ export const disconnectSocket = () => {
   }
 };
 
-export const emitTaskCreated = (task) => {
-  socket?.emit('task:created', task);
-};
-
-export const emitTaskStatusChanged = (data) => {
-  socket?.emit('task:statusChanged', data);
-};
-
-export const emitChatMessage = (message) => {
-  socket?.emit('chat:message', message);
+// Дополнительные emit-функции, если нужны
+export const emitJoinFamily = () => {
+  socket?.emit('join:family');
 };
